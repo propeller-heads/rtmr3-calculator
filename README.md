@@ -17,6 +17,8 @@ Make sure you have [Node.js](https://nodejs.org/en/download) installed.
 
 Clone the [repo](https://github.com/propeller-heads/rtmr3-calculator) and run `npm start`.
 
+Alternatively, just use a simple Python script. Put your values in `./src/rtmr3.py` and run it.
+
 ## Where can I check the logic?
 
 The only code that really matters for verification is in `./src/rtmr3.tsx`. Everything else is just stuff needed to make it a web app.
