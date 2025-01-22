@@ -4,7 +4,7 @@ Verify that a TEE is running a certain docker-compose file.
 
 ## How to verify?
 
-1. Go to https://rtmr3-calculator-qoi0kmi55-michals-projects-57026dc4.vercel.app
+1. Go to https://rtmr3-calculator.vercel.app/
 2. Paste docker-compose file that your app provider claims to have used
 3. Paste other required values produced by the TEE
 4. Generate RTMR3 value
