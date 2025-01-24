@@ -24,12 +24,15 @@ def calc_rtmr3(root_fs_hash: str, app_id: str, compose_manifest_path: str,
     :param instance_id: Instance ID. Available publicly on Phala Cloud.
     :return: Calculated RTMR3 value.
     """
-    compose_hash = get_compose_hash(compose_manifest_path)
+    try:
+        compose_hash = get_compose_hash_from_file(compose_manifest_path)
+    except FileNotFoundError:
+        compose_hash = get_compose_hash_from_string(compose_manifest_path)
     return calc_rtmr3_from_hashes(root_fs_hash, app_id, compose_hash, ca_cert_hash,
                                   instance_id)
 
 
-def get_compose_hash(path: str) -> str:
+def get_compose_hash_from_file(path: str) -> str:
     """
     Get the compose hash from the compose file at a given path.
 
@@ -48,6 +51,13 @@ def get_compose_hash(path: str) -> str:
     print(adjusted_manifest_string)
     compose_hash = hashlib.sha256(adjusted_manifest_string.encode()).hexdigest()
     return compose_hash
+
+
+def get_compose_hash_from_string(app_compose_string: str) -> str:
+    compose_hash = hashlib.sha256(app_compose_string.encode()).hexdigest()
+    print("Compose hash:", compose_hash)
+    return compose_hash
+
 
 
 def calc_rtmr3_from_hashes(root_fs_hash: str, app_id: str, compose_hash: str,

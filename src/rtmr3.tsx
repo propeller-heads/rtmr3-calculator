@@ -86,23 +86,8 @@ const getComposeHash = async (composeContent: string): Promise<string> => {
   if (!composeContent.trim()) return "";
 
   try {
-    let manifestDict: Record<string, any>;
-    try {
-      manifestDict = JSON.parse(composeContent);
-    } catch (e) {
-      console.log("Invalid JSON, treating as yaml/raw content");
-      manifestDict = { content: composeContent };
-    }
-
-    // Create adjusted manifest with empty docker_config
-    const adjustedManifest = { ...manifestDict, docker_config: {} };
-
-    // Ensure consistent serialization
-    const manifestString = JSON.stringify(adjustedManifest, null, 0);
-    console.log("Manifest string:", manifestString);
-
     const encoder = new TextEncoder();
-    const data = encoder.encode(manifestString);
+    const data = encoder.encode(composeContent);
     const hashBuffer = await crypto.subtle.digest("SHA-256", data);
     const hash = uint8ArrayToHex(new Uint8Array(hashBuffer));
     console.log("Compose hash:", hash);
